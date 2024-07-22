@@ -11,7 +11,7 @@ const router = createRouter({
     {
       path: '/city',
       name:'cityView',
-      component:()=>import('../views/CityView.vue')
+      component:()=>import('../views/CityView/CityView.vue')
     }
   ]
 })

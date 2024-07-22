@@ -7,7 +7,7 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig(({ command, mode }) => {
   // 根据当前工作目录中的 `mode` 加载 .env 文件
   // 设置第三个参数为 '' 来加载所有环境变量，而不管是否有 `VITE_` 前缀。
-  const { VITE_BASE_URL } = loadEnv(mode, process.cwd())
+  const { VITE_BASE_URL,VITE_BASE_MAP,VITE_BASE_HOTCITY } = loadEnv(mode, process.cwd())
   return {
     plugins: [
       vue(),
@@ -19,22 +19,22 @@ export default defineConfig(({ command, mode }) => {
     },
     server: {
       proxy: {
-        '/api': {
+        '/geo': {
           target: VITE_BASE_URL,
-          changeOrigin: true,
-          rewrite: path => {
-            return path.replace(/^\/api/, "")
-          }
-        },
-        '/geo':{
-          target: 'https://geo.datav.aliyun.com/areas_v3/bound',
           changeOrigin: true,
           rewrite: path => {
             return path.replace(/^\/geo/, "")
           }
         },
+        '/map':{
+          target: VITE_BASE_MAP,
+          changeOrigin: true,
+          rewrite: path => {
+            return path.replace(/^\/map/, "")
+          }
+        },
         '/hotCity':{
-          target:'http://39.103.151.139:8000',
+          target:VITE_BASE_HOTCITY,
           changeOrigin: true,
           rewrite: path => {
             return path.replace(/^\/hotCity/, "")

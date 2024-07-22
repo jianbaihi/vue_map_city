@@ -1,37 +1,26 @@
 <template>
-  <button id="location" @click="handleClick">
-    <i class="iconfont icon-weizhi"></i> {{ currentCity.name }} --天气: {{ currentCity.weather }}
+  <button id="location" @click="$router.push('/city')">
+    <i class="iconfont icon-weizhi"></i> 
+    {{ $store.city.slice(0,2) }} 
+    --天气: {{ weather }}
   </button>
 </template>
 
 <script setup>
 import {ref,onMounted,toRefs} from 'vue'
 import {useRouter} from 'vue-router'
-import {getIPCity,getWeather} from '../../../api/getDataHttp.js'
+import {getWeather} from '../../../api/getDataHttp.js'
 import {useCityStore} from '../../../stores/cities.js'
-const {historyCity,currentCity} = toRefs(useCityStore())
-
 const $router = useRouter()
-
-const handleClick = () => {
-    $router.push('/city')
-}
-
-// const cityWeather = ref({})
-
-const getCityWeather = async()=>{
-    const weatherData = await getWeather(currentCity.value.name)
-    // console.log(weatherData)
-    currentCity.value = {
-        name: weatherData.lives[0].city.slice(0,2),
-        adcode: weatherData.lives[0].adcode,
-        weather: weatherData.lives[0].weather
-    }
-}
+const $store = useCityStore() 
+// const {city} = toRefs($store)
+const weather = ref(null)
 
 // 请求数据
 onMounted(() => {
-    getCityWeather()
+  getWeather($store.city).then(res=>{
+    weather.value = res.lives[0].weather
+  })
 })
 
 </script>
