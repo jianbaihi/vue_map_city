@@ -5,8 +5,8 @@ import { useCityStore } from '@/stores/cities'
 const $store = useCityStore()
 
 export  const useLocationAndWeatherHook = async()=>{
-    const map =  app.config.globalProperties.$map
-    // console.log(map)
+        const map =  app.config.globalProperties.$map
+        // console.log(map)
         // 获取当前城市
         let city = $store.city + "市";
         let result = await getCityLocation(city);
@@ -36,7 +36,7 @@ export  const useLocationAndWeatherHook = async()=>{
             }),
             stroke: new ol.style.Stroke({
                 color: '#ff2d51',
-                width: 2,
+                width: 1.5,
             }),
             })
         )

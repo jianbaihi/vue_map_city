@@ -1,7 +1,5 @@
-import { ref, getCurrentInstance } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import {getIPCity,getCityLocation,getWeather,getCityGeo,getHotCity} from '../api/getDataHttp'
-// const {proxy} = getCurrentInstance()
 
 
 export const useCityStore = defineStore('cities', () => {
@@ -13,7 +11,9 @@ export const useCityStore = defineStore('cities', () => {
     }
     return city;
   }
+
   const city = getDefaultCity();
+
   const changeCity = (val) => {
     city.value = val;
     /* 设置缓存 */

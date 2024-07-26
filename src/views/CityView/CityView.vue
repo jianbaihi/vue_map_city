@@ -7,7 +7,11 @@
       <button class="location" @click="handleClick(ipCity.slice(0, 2))">
         <i class="iconfont icon-weizhi"></i>{{ ipCity }}
       </button>
-      <button v-for="item in historyCities" :key="item">
+      <button 
+      v-for="item in historyCities" 
+      :key="item"
+      @click="handleClick(item)"
+      >
         {{ item }}
       </button>
     </div>
@@ -78,7 +82,7 @@ watch(historyCities, (val) => {
   localStorage.setItem('localCities', JSON.stringify(val))
 })
 
-// 获取缓存中的local Cities
+// 获取缓存中的localCities
 onMounted(() => {
   let localCities = localStorage.getItem('localCities')
   if (localCities) {

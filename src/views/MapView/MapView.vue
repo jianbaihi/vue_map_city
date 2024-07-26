@@ -25,6 +25,7 @@ const $store = useCityStore()
 const {proxy} = getCurrentInstance()
 const isShowPopup = ref(false)
 
+
 onMounted(async () => {
   let result = await getIPCity()
   let ipCity = result.city
@@ -43,7 +44,9 @@ const handleClose = () => {
 const jumpIpCity = () => {
   isShowPopup.value = false
 //   source.clear()
+
   useLocationAndWeatherHook()
+  // $store.changeCity(ipCity)
 }
 </script>
 
